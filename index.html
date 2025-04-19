@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Renkli Sohbet</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <div class="chat-wrapper">
+    <div class="chat-container">
+      <h2>🎉 Renkli Sohbet Odası</h2>
+
+      <div class="room-select">
+        <label for="room">Oda Seç:</label>
+        <select id="room">
+          <option value="genel"># Genel Oda</option>
+          <option value="ozel">🔒 Özel Oda</option>
+        </select>
+      </div>
+
+      <div class="online-users">
+        👥 Çevrimiçi: <span id="online-list">💙 Kullanıcı1, 💚 Kullanıcı2, 💖 Kullanıcı3</span>
+      </div>
+
+      <div id="chat-box"></div>
+
+      <div class="user-select">
+        <label for="username">Kullanıcı:</label>
+        <select id="username">
+          <option value="user1">💙 Kullanıcı1</option>
+          <option value="user2">💚 Kullanıcı2</option>
+          <option value="user3">💖 Kullanıcı3</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <input type="text" id="messageInput" placeholder="💬 Mesaj yaz..." />
+        <button onclick="sendMessage()">🚀 Gönder</button>
+      </div>
+
+      <div class="radio-panel">
+        <h3>📻 Radyo Canlı Yayın</h3>
+        <audio id="liveRadio" controls>
+          <source src="https://radyo.dogannet.tv/slowturk/icecast.audio" type="audio/mpeg" />
+        </audio>
+      </div>
+    </div>
+  </div>
+
+  <div class="music-player">
+    🎵 Arka Plan Müziği:
+    <button onclick="toggleMusic()">⏯️ Başlat / Durdur</button>
+  </div>
+  <audio id="bgMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-buddy.mp3" type="audio/mp3" />
+  </audio>
+
+  <audio id="messageSound" src="https://www.myinstants.com/media/sounds/tindeck_1.mp3" preload="auto"></audio>
+  <script src="https://cdn.jsdelivr.net/npm/emoji-js@3.6.0/lib/emoji.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    const socket = io();
+    socket.on("chat message", function (data) {
+      receiveMessage(data);
+    });
+  </script>
+</body>
+</html>
+
+
